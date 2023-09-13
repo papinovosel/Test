@@ -7,15 +7,17 @@ namespace WebApplication3.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _appDbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext)
         {
+            _appDbContext = appDbContext;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_appDbContext.People.ToList());
         }
 
         public IActionResult Privacy()
